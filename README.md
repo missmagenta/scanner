@@ -7,7 +7,7 @@
 Предоставляется возможность выбрать базу данных для работы: MongoDB или Clickhouse.
 
 
-В командной строке указываем переменную окружения DB_TYPE: mongodb или clickhouse.
+В командной строке указываем переменную окружения DB_TYPE
 ```
 $env:DB_TYPE = "mongodb"
 $env:DB_TYPE = "clickhouse"
