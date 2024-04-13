@@ -1,0 +1,10 @@
+headerFont: ArialUnicode
+headerSize: 16.0
+tableFont: ArialUnicode
+tableSize: 8.0
+tableHeaderSize: 10.0
+borderType: "1"
+fileName: "table"
+
+font_path: "internal/pdf/font/Times New Roman.ttf"
+output_path: "test_working_dirs/output_pdf_files"

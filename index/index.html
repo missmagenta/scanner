@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.Title}}</title>
+    <style>
+        body {
+            font-family: Garamond, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #c7e5cc; /* Цвет фона для таблицы */
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        th {
+            background-color: #86c57f; /* Цвет фона для заголовков столбцов */
+            color: white;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ddd;
+        }
+
+        .submit-btn {
+            padding: 8px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .pagination {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+    </style>
+    <script>
+        function incrementPage() {
+            var pageField = document.getElementById('page');
+            var currentPage = parseInt(pageField.value);
+            pageField.value = currentPage + 1;
+            document.getElementById('paginationForm').submit();
+        }
+
+
+        function updateHiddenField() {
+            var searchValue = document.getElementById('search').value;
+            document.getElementById('hiddenQuery').value = searchValue;
+        }
+
+
+    </script>
+</head>
+
+<body>
+<div class="center">
+    <form action="/index" method="post" class="search-form">
+        <input type="text" id="search" name="query" class="search-input" placeholder="Введите Unit Guid">
+        <input type="hidden" name="page" value="1">
+        <button type="submit" class="submit-btn">Search</button>
+    </form>
+</div>
+
+
+
+
+{{if .Mes}}
+
+<div class="center">
+    <p>Всего {{ .Total }} записей. Страница {{ .PageN }}</p>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Mqtt</th>
+        <th>Invent</th>
+        <th>UnitGUID</th>
+        <th>MsgID</th>
+        <th>Text</th>
+        <th>Context</th>
+        <th>Class</th>
+        <th>Level</th>
+        <th>Area</th>
+        <th>Addr</th>
+        <th>Block</th>
+        <th>Type</th>
+        <th>Bit</th>
+        <th>InvertBit</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{range .Mes}}
+    <tr>
+        <td>{{.Mqtt}}</td>
+        <td>{{.Invent}}</td>
+        <td>{{.UnitGUID}}</td>
+        <td>{{.MsgID}}</td>
+        <td>{{.Text}}</td>
+        <td>{{.Context}}</td>
+        <td>{{.Class}}</td>
+        <td>{{.Level}}</td>
+        <td>{{.Area}}</td>
+        <td>{{.Addr}}</td>
+        <td>{{.Block}}</td>
+        <td>{{.Type}}</td>
+        <td>{{.Bit}}</td>
+        <td>{{.InvertBit}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+
+<div style="display: flex; justify-content:  space-evenly;">
+    <form action="/index" method="post" class="center" id="previousPageForm">
+        <input type="hidden" name="query" value="{{ .UnitGuid }}">
+        <input type="hidden" name="page" id="page" value="{{add  .PageN -1 .Total .PageSize }}">
+        <input type="submit" value="Previous" >
+    </form>
+
+
+    <form action="/index" method="post" class="center" id="nextPageForm">
+        <input type="hidden" name="query" value="{{ .UnitGuid }}">
+        <input type="hidden" name="page" id="page" value="{{add  .PageN 1 .Total .PageSize }}">
+        <input type="submit" value="Next" >
+    </form>
+</div>
+{{else}}
+
+<div class="center">
+    {{if .UnitGuid}}
+    <p style="font-size: 20px; font-weight: bold;">
+    По запросу "{{.UnitGuid}}" записи не найдены
+    </p>
+    {{else}}
+    <p style="font-size: 20px; font-weight: bold;">
+    Введите Unit Guid
+    </p>
+    {{end}}
+</div>
+
+{{end}}
+
+</body>
+</html>

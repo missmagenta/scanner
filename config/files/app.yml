@@ -1,0 +1,6 @@
+path_to_scan: "test_working_dirs/dir_to_scan"
+checkable_file_extension: ".tsv"
+frequency_of_dir_checks: 10 #sec
+web_server_port: ":8080"
+html_template: "index/index.html"
+page_size: 15

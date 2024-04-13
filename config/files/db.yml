@@ -1,0 +1,13 @@
+db_impl: "clickhouse"
+
+mongo_host: "mongodb://localhost"
+mongo_port: ":27017"
+mongo_database: "dev"
+files_collection: "file"
+guid_collection: "guid"
+
+clickhouse_host: "localhost"
+clickhouse_port: 8123
+clickhouse_database: "default"
+files_table: "file"
+guid_table: "guid"

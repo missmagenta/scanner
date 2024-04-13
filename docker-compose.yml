@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mongo-demo-v:
+    container_name: mongo-demo-v
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - mongodemo:/data/db
+
+  clickhouse-demo-v:
+    container_name: clickhouse-demo-v
+    image: yandex/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_USER: ${CLICKHOUSE_USERNAME}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD}
+    volumes:
+      - clickhousedemo:/var/lib/clickhouse
+
+volumes:
+  mongodemo:
+  clickhousedemo:
